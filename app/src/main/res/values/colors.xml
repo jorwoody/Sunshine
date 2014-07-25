@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_weather_icon">#ffffff</color>
+    <color name="bg_loading">#ffffff</color>
+    <color name="bg_detail_header">#7bbcff</color>
+    <color name="bg_separator">#000000</color>
+
+</resources>

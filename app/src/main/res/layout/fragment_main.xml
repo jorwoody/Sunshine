@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context="jorwoody.sunshine.app.fragments.ForecastFragment">
+
+    <ListView
+        android:id="@+id/listview_forecast"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/loading_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="@string/loading_text"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@color/bg_loading"/>
+
+</FrameLayout>
