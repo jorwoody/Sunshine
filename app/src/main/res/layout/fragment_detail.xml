@@ -6,18 +6,22 @@
     tools:context="jorwoody.sunshine.app.activities.DetailActivity$PlaceholderFragment">
 
     <TextView
+        android:id="@+id/detail_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:background="@color/bg_detail_header"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        android:id="@+id/detail_date"/>
+        android:padding="10dp"/>
 
+    <!-- Weather -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layoutDirection="rtl"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/details_vertical_margin"
         android:layout_marginLeft="@dimen/details_horizontal_margin"
         android:layout_marginRight="@dimen/details_horizontal_margin">
@@ -27,28 +31,28 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:padding="@dimen/details_padding"
-            android:layout_gravity="left"
+            android:layout_gravity="right"
             android:background="@color/bg_weather_icon"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:layout_gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_description"
-                android:gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/detail_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textAlignment="center"/>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -61,6 +65,7 @@
         android:layout_marginBottom="@dimen/separator_margin"
         android:background="@color/bg_separator"/>
 
+    <!-- Temperatures -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -77,7 +82,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_high"/>
+                android:text="@string/label_high"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_high"
@@ -96,7 +102,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_low"/>
+                android:text="@string/label_low"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_low"
@@ -116,7 +123,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_morning"/>
+                android:text="@string/label_morning"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_morning"
@@ -135,7 +143,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_day"/>
+                android:text="@string/label_day"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_day"
@@ -154,7 +163,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_evening"/>
+                android:text="@string/label_evening"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_evening"
@@ -173,7 +183,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_night"/>
+                android:text="@string/label_night"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_night"
@@ -192,6 +203,7 @@
         android:layout_marginBottom="@dimen/separator_margin"
         android:background="@color/bg_separator"/>
 
+    <!-- Atmosphere -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -208,7 +220,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_pressure"/>
+                android:text="@string/label_pressure"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_pressure"
@@ -227,7 +240,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_humidity"/>
+                android:text="@string/label_humidity"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_humidity"
@@ -246,7 +260,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_clouds"/>
+                android:text="@string/label_clouds"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_clouds"
@@ -265,6 +280,7 @@
         android:layout_marginBottom="@dimen/separator_margin"
         android:background="@color/bg_separator"/>
 
+    <!-- Wind conditions -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -276,6 +292,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:text="@string/label_wind"
             android:textStyle="bold"/>
 
@@ -288,7 +305,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_speed"/>
+                android:text="@string/label_speed"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_speed"
@@ -307,7 +325,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_degree"/>
+                android:text="@string/label_degree"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_degree"
@@ -326,6 +345,7 @@
         android:layout_marginBottom="@dimen/separator_margin"
         android:background="@color/bg_separator"/>
 
+    <!-- Precipitation -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -349,7 +369,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_rain"/>
+                android:text="@string/label_rain"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_rain"
@@ -368,7 +389,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_snow"/>
+                android:text="@string/label_snow"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/detail_snow"

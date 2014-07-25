@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -53,6 +54,7 @@ public class WeatherAPI {
     public static void refresh(TextView loadingView) {
         mLoadingView = loadingView;
         new FetchWeatherTask().execute(mPostalCode);
+        Toast.makeText(loadingView.getContext(), "Forecast refreshed!", Toast.LENGTH_SHORT).show();
     }
 
     private static class FetchWeatherTask extends AsyncTask<String, Void, DayForecast[]> {
@@ -147,9 +149,13 @@ public class WeatherAPI {
         @Override
         protected void onPostExecute(DayForecast[] forecasts) {
             super.onPostExecute(forecasts);
-            mForecastAdapter.clear();
-            for(DayForecast forecast : forecasts) {
-                mForecastAdapter.add(forecast);
+            if(forecasts != null) {
+                mForecastAdapter.clear();
+                for (DayForecast forecast : forecasts) {
+                    mForecastAdapter.add(forecast);
+                }
+            } else {
+                Toast.makeText(mLoadingView.getContext(), "Error retrieving forecast. Please try again.", Toast.LENGTH_LONG).show();
             }
             mForecastAdapter.notifyDataSetChanged();
             mLoadingView.setVisibility(View.INVISIBLE);

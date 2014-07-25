@@ -17,6 +17,7 @@ public class DayForecast implements Parcelable {
     private Weather mWeather;
     private double mSpeed;      // wind speed, mps
     private int mDegree;        // wind direction, degrees (meteorological)
+    private String mDirection;  // polar direction
     private int mClouds;        // cloudiness, %
     private double mRain;       // per 3 hours, mm
     private double mSnow;       // per 3 hours, mm
@@ -29,6 +30,7 @@ public class DayForecast implements Parcelable {
         mWeather = weather;
         mSpeed = speed;
         mDegree = degree;
+        mDirection = calcPolarDirection(degree);
         mClouds = clouds;
         mRain = rain;
         mSnow = snow;
@@ -43,9 +45,36 @@ public class DayForecast implements Parcelable {
         mWeather = in.readParcelable(Weather.class.getClassLoader());
         mSpeed = in.readDouble();
         mDegree = in.readInt();
+        mDirection = in.readString();
         mClouds = in.readInt();
         mRain = in.readDouble();
         mSnow = in.readDouble();
+    }
+
+    /*
+     * Description:
+     * Converts degrees to polar direction using the following ranges...
+     *
+     * N = 0,        NE = 45,      E = 90,       SE = 135,       S = 180,       SW = 225,       W = 270,       NW = 315
+     * N = 337 - 21, NE = 22 - 66, E = 67 - 111, SE = 112 - 156, S = 157 - 201, SW = 202 - 246, W = 247 - 291, NW = 292 - 336
+     */
+    public String calcPolarDirection(int degree) {
+        if(degree >= 337 && degree < 22)
+            return "N";
+        else if(degree >= 22 && degree < 67)
+            return "NE";
+        else if(degree >= 67 && degree < 112)
+            return "E";
+        else if(degree >= 112 && degree < 157)
+            return "SE";
+        else if(degree >= 157 && degree < 202)
+            return "S";
+        else if(degree >= 202 && degree < 247)
+            return "SW";
+        else if(degree >= 247 && degree < 292)
+            return "W";
+        else
+            return "NW";
     }
 
     public String getDay() {
@@ -96,6 +125,10 @@ public class DayForecast implements Parcelable {
         return mDegree;
     }
 
+    public String getDirection() {
+        return mDirection;
+    }
+
     public int getClouds() {
         return mClouds;
     }
@@ -122,6 +155,7 @@ public class DayForecast implements Parcelable {
         dest.writeParcelable(mWeather, flags);
         dest.writeDouble(mSpeed);
         dest.writeInt(mDegree);
+        dest.writeString(mDirection);
         dest.writeInt(mClouds);
         dest.writeDouble(mRain);
         dest.writeDouble(mSnow);

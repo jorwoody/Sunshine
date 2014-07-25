@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import jorwoody.sunshine.app.objects.DayForecast;
+import jorwoody.sunshine.app.R;
 import jorwoody.sunshine.app.activities.DetailActivity;
 import jorwoody.sunshine.app.adapters.ForecastAdapter;
-import jorwoody.sunshine.app.R;
+import jorwoody.sunshine.app.objects.DayForecast;
 import jorwoody.sunshine.app.utilities.WeatherAPI;
 
 /* Created by: Jordan Wood - July 2014
@@ -49,7 +48,6 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             WeatherAPI.refresh((TextView) getView().findViewById(R.id.loading_view));
-            Toast.makeText(getActivity().getApplicationContext(), "Forecast refreshed!", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -61,8 +59,8 @@ public class ForecastFragment extends Fragment {
         TextView loadingView = (TextView) rootView.findViewById(R.id.loading_view);
 
         mForecastAdapter = new ForecastAdapter(getActivity(), R.layout.list_item_forecast, new ArrayList<DayForecast>());
-        WeatherAPI.initialize("R3T5N6", mForecastAdapter, loadingView);
-
+        if(mForecastAdapter.getCount() < 7)
+            WeatherAPI.initialize("R3T5N6", mForecastAdapter, loadingView);
         ListView listViewForecast = (ListView) rootView.findViewById(R.id.listview_forecast);
         listViewForecast.setAdapter(mForecastAdapter);
         listViewForecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {

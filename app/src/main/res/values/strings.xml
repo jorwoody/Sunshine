@@ -20,7 +20,7 @@
     <string name="label_night">Night:</string>
     <string name="label_pressure">Pressure (hPa):</string>
     <string name="label_humidity">Humidity (%):</string>
-    <string name="label_description">Current conditions:</string>
+    <string name="label_description">Weather conditions:</string>
     <string name="label_wind">Wind</string>
     <string name="label_speed">Speed:</string>
     <string name="label_degree">Direction:</string>
