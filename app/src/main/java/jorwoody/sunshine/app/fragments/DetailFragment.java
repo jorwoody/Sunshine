@@ -49,8 +49,7 @@ public class DetailFragment extends Fragment {
         TextView textPressure = (TextView) rootView.findViewById(R.id.detail_pressure);
         TextView textHumidity = (TextView) rootView.findViewById(R.id.detail_humidity);
         TextView textClouds = (TextView) rootView.findViewById(R.id.detail_clouds);
-        TextView textSpeed = (TextView) rootView.findViewById(R.id.detail_speed);
-        TextView textDegree = (TextView) rootView.findViewById(R.id.detail_degree);
+        TextView textWind = (TextView) rootView.findViewById(R.id.detail_wind);
         TextView textRain = (TextView) rootView.findViewById(R.id.detail_rain);
         TextView textSnow = (TextView) rootView.findViewById(R.id.detail_snow);
 
@@ -66,8 +65,7 @@ public class DetailFragment extends Fragment {
         textPressure.setText(Double.toString(mForecast.getPressure()));
         textHumidity.setText(Integer.toString(mForecast.getHumidity()));
         textClouds.setText(Integer.toString(mForecast.getClouds()));
-        textSpeed.setText(Double.toString(mForecast.getSpeed()));
-        textDegree.setText(Integer.toString(mForecast.getDegree()));
+        textWind.setText(mForecast.getDirection() + " @ " + Double.toString(mForecast.getSpeed()));
         textRain.setText(Double.toString(mForecast.getRain()));
         textSnow.setText(Double.toString(mForecast.getSnow()));
     }

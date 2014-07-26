@@ -296,45 +296,10 @@
             android:text="@string/label_wind"
             android:textStyle="bold"/>
 
-        <!-- Wind Speed -->
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_speed"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/detail_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/details_padding"/>
-
-        </LinearLayout>
-
-        <!-- Wind Direction -->
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_degree"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/detail_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/details_padding"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/detail_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

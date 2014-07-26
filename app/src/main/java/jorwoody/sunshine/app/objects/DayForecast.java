@@ -60,21 +60,21 @@ public class DayForecast implements Parcelable {
      */
     public String calcPolarDirection(int degree) {
         if(degree >= 337 && degree < 22)
-            return "N";
+            return "North";
         else if(degree >= 22 && degree < 67)
-            return "NE";
+            return "Northeast";
         else if(degree >= 67 && degree < 112)
-            return "E";
+            return "East";
         else if(degree >= 112 && degree < 157)
-            return "SE";
+            return "Southeast";
         else if(degree >= 157 && degree < 202)
-            return "S";
+            return "South";
         else if(degree >= 202 && degree < 247)
-            return "SW";
+            return "Southwest";
         else if(degree >= 247 && degree < 292)
-            return "W";
+            return "West";
         else
-            return "NW";
+            return "Northwest";
     }
 
     public String getDay() {

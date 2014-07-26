@@ -5,5 +5,6 @@
     <color name="bg_loading">#ffffff</color>
     <color name="bg_detail_header">#7f2bbfef</color>
     <color name="bg_separator">#9aababab</color>
+    <color name="bg_drawer">#ffcfd0dd</color>
 
 </resources>
