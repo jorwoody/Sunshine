@@ -2,15 +2,22 @@ package jorwoody.sunshine.app.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import jorwoody.sunshine.app.objects.DayForecast;
 import jorwoody.sunshine.app.R;
+import jorwoody.sunshine.app.objects.DayForecast;
 
 /* Created by: Jordan Wood - July 2014
  * Description:
@@ -18,9 +25,13 @@ import jorwoody.sunshine.app.R;
  */
 public class DetailFragment extends Fragment {
 
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+
     DayForecast mForecast;
 
-    public DetailFragment() {}
+    public DetailFragment() {
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,11 +40,43 @@ public class DetailFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         if(intent != null && intent.hasExtra(DayForecast.EXTRA_FORECAST)) {
             mForecast = (DayForecast) intent.getExtras().getParcelable(DayForecast.EXTRA_FORECAST);
+            prepView(rootView);
         }
 
-        prepView(rootView);
-
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.detail_fragment, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+
+        ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+        if(shareActionProvider != null) {
+            shareActionProvider.setShareIntent(createShareForecastIntent());
+        } else {
+            Log.d(LOG_TAG, "Share Action Provider is null");
+        }
+    }
+
+    private Intent createShareForecastIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+
+        String unit = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext())
+                .getString(getString(R.string.pref_units_key), "");
+        String shareForecastString;
+        if(unit.equals(getString(R.string.pref_units_imperial))) {
+            shareForecastString = mForecast.getForecastString().replaceAll("UNIT", "F");
+        } else {
+            shareForecastString = mForecast.getForecastString().replaceAll("UNIT", "C");
+        }
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareForecastString);
+        return shareIntent;
     }
 
     private void prepView(View rootView) {
@@ -69,4 +112,5 @@ public class DetailFragment extends Fragment {
         textRain.setText(Double.toString(mForecast.getRain()));
         textSnow.setText(Double.toString(mForecast.getSnow()));
     }
+
 }

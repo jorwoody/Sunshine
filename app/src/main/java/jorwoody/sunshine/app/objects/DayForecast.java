@@ -51,6 +51,10 @@ public class DayForecast implements Parcelable {
         mSnow = in.readDouble();
     }
 
+    public String getForecastString() {
+        return mDay + "\nForecast: " + mWeather.getDescription() + "\nHigh of " + (int)mTemps[2] + " \u00B0 UNIT" + ". Low of " + (int)mTemps[1] + " \u00B0 UNIT.";
+    }
+
     /*
      * Description:
      * Converts degrees to polar direction using the following ranges...

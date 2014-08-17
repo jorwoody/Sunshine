@@ -1,10 +1,11 @@
 package jorwoody.sunshine.app.utilities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import jorwoody.sunshine.app.R;
 import jorwoody.sunshine.app.adapters.ForecastAdapter;
 import jorwoody.sunshine.app.objects.DayForecast;
 
@@ -29,9 +31,8 @@ public class WeatherAPI {
     private static HttpURLConnection urlConnection = null;
     private static String forecastJsonStr;
     private static BufferedReader reader = null;
-    private static String mPostalCode;
     private static ForecastAdapter mForecastAdapter;
-    private static TextView mLoadingView;
+    private static View mLoadingView;
 
     private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
     private static final String QUERY_PARAM = "q";
@@ -39,22 +40,27 @@ public class WeatherAPI {
     private static final String UNITS_PARAM = "units";
     private static final String DAYS_PARAM = "cnt";
 
-    public static void initialize(String postalCode, ForecastAdapter forecastAdapter, TextView loadingView) {
-        mPostalCode = postalCode;
+    public static void initialize(ForecastAdapter forecastAdapter, View loadingView) {
         mForecastAdapter = forecastAdapter;
         mLoadingView = loadingView;
-        new FetchWeatherTask().execute(mPostalCode);
+        new FetchWeatherTask().execute(getLocationCode());
     }
 
-    public static void changeLocation(String postalCode) {
-        mPostalCode = postalCode;
-        new FetchWeatherTask().execute(mPostalCode);
+    private static String getLocationCode() {
+        Context context = mLoadingView.getContext();
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.pref_location_key), context.getString(R.string.pref_location_default));
     }
 
-    public static void refresh(TextView loadingView) {
+    private static String getUnits() {
+        Context context = mLoadingView.getContext();
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.pref_units_key), context.getString(R.string.pref_units_default));
+    }
+
+    public static void refresh(View loadingView) {
         mLoadingView = loadingView;
-        new FetchWeatherTask().execute(mPostalCode);
-        Toast.makeText(loadingView.getContext(), "Forecast refreshed!", Toast.LENGTH_SHORT).show();
+        new FetchWeatherTask().execute(getLocationCode());
     }
 
     private static class FetchWeatherTask extends AsyncTask<String, Void, DayForecast[]> {
@@ -74,7 +80,7 @@ public class WeatherAPI {
         @Override
         protected DayForecast[] doInBackground(String... params) {
             String format = "json";
-            String units = "metric";
+            String units = getUnits();
             int numDays = 7;
 
             try {
@@ -154,6 +160,7 @@ public class WeatherAPI {
                 for (DayForecast forecast : forecasts) {
                     mForecastAdapter.add(forecast);
                 }
+                Toast.makeText(mLoadingView.getContext(), "Forecast refreshed!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(mLoadingView.getContext(), "Error retrieving forecast. Please try again.", Toast.LENGTH_LONG).show();
             }

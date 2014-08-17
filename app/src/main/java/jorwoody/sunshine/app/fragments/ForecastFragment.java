@@ -3,8 +3,6 @@ package jorwoody.sunshine.app.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,13 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import jorwoody.sunshine.app.R;
 import jorwoody.sunshine.app.activities.DetailActivity;
-import jorwoody.sunshine.app.activities.MainActivity;
 import jorwoody.sunshine.app.adapters.ForecastAdapter;
 import jorwoody.sunshine.app.objects.DayForecast;
 import jorwoody.sunshine.app.utilities.WeatherAPI;
@@ -46,20 +42,16 @@ public class ForecastFragment extends Fragment {
         inflater.inflate(R.menu.forecast_fragment, menu);
     }
 
+    public void onSettingChanged() {
+        WeatherAPI.refresh(loadingView);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_refresh) {
-            WeatherAPI.refresh((TextView) getView().findViewById(R.id.loading_view));
+            WeatherAPI.refresh(loadingView);
             return true;
-        } else if (id == R.id.action_change_location) {
-            DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-            View drawer_view = getActivity().findViewById(R.id.right_drawer);
-            if(drawer.isDrawerOpen(drawer_view))
-                drawer.closeDrawer(Gravity.RIGHT);
-            else {
-                drawer.openDrawer(Gravity.RIGHT);
-            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -67,11 +59,11 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        TextView loadingView = (TextView) rootView.findViewById(R.id.loading_view);
+        loadingView = rootView.findViewById(R.id.loading_view);
 
         mForecastAdapter = new ForecastAdapter(getActivity(), R.layout.list_item_forecast, new ArrayList<DayForecast>());
         if(mForecastAdapter.getCount() < 7)
-            WeatherAPI.initialize(MainActivity.locationCode, mForecastAdapter, loadingView);
+            WeatherAPI.initialize(mForecastAdapter, loadingView);
         ListView listViewForecast = (ListView) rootView.findViewById(R.id.listview_forecast);
         listViewForecast.setAdapter(mForecastAdapter);
         listViewForecast.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,8 +71,8 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 DayForecast forecast = (DayForecast) mForecastAdapter.getItem(position);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(DayForecast.EXTRA_FORECAST, forecast);
+                Intent intent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(DayForecast.EXTRA_FORECAST, forecast);
                 startActivity(intent);
             }
         });
