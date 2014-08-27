@@ -100,7 +100,7 @@ public class WeatherDataParser {
             rain = (dayForecast.has(OWM_RAIN) ? dayForecast.getDouble(OWM_RAIN) : 0);
             snow = (dayForecast.has(OWM_SNOW) ? dayForecast.getDouble(OWM_SNOW) : 0);
 
-            dayForecasts[i] = new DayForecast(day, temps, pressure, humidity, weather, speed, degree, clouds, rain, snow);
+            dayForecasts[i] = new DayForecast(dateTime, day, temps, pressure, humidity, weather, speed, degree, clouds, rain, snow);
         }
 
         return dayForecasts;

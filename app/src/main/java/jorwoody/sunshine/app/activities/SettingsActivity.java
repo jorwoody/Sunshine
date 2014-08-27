@@ -9,7 +9,10 @@ import android.preference.PreferenceManager;
 
 import jorwoody.sunshine.app.R;
 
-
+/* Created by: Jordan Wood - August 2014
+ * Description:
+ * Activity for editing app settings
+ */
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     Intent returnIntent;

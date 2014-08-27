@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class DayForecast implements Parcelable {
 
     public static final String EXTRA_FORECAST = "forecast";
+    private long mDateTime;     // e.g. "1406080800" - unix time stamp GMT
     private String mDay;        // e.g. Monday, April 20
     private double[] mTemps;    // 0 = day; 1 = min; 2 = max; 3 = night; 4 = evening; 5 = morning
     private double mPressure;   // atmospheric pressure, hPa
@@ -22,7 +23,8 @@ public class DayForecast implements Parcelable {
     private double mRain;       // per 3 hours, mm
     private double mSnow;       // per 3 hours, mm
 
-    public DayForecast(String day, double[] temps, double pressure, int humidity, Weather weather, double speed, int degree, int clouds, double rain, double snow) {
+    public DayForecast(long dateTime, String day, double[] temps, double pressure, int humidity, Weather weather, double speed, int degree, int clouds, double rain, double snow) {
+        mDateTime = dateTime;
         mDay = day;
         mTemps = temps;
         mPressure = pressure;

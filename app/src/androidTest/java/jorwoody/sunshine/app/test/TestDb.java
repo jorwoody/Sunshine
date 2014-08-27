@@ -9,16 +9,19 @@ import android.util.Log;
 import java.util.Map;
 import java.util.Set;
 
-import jorwoody.sunshine.app.database.WeatherContract.LocationEntry;
-import jorwoody.sunshine.app.database.WeatherContract.WeatherEntry;
-import jorwoody.sunshine.app.database.WeatherDbHelper;
+import jorwoody.sunshine.app.data.WeatherContract.LocationEntry;
+import jorwoody.sunshine.app.data.WeatherContract.WeatherEntry;
+import jorwoody.sunshine.app.data.WeatherDbHelper;
 
-/**
- * Created by Jordan on 8/18/2014.
+/* Created by: Jordan Wood - August 2014
+ * Description:
+ * Database tests
  */
 public class TestDb extends AndroidTestCase {
 
     private static final String LOG_TAG = TestDb.class.getSimpleName();
+    public static final String TEST_LOCATION = "R3T5N6";
+    public static final String TEST_DATE = "1397967600";
 
     public void testCreateDb() throws Throwable {
         mContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
@@ -54,10 +57,12 @@ public class TestDb extends AndroidTestCase {
         dbHelper.close();
     }
 
-    private static ContentValues createWeatherValues(long locationRowId) {
+    public static ContentValues createWeatherValues(long locationRowId) {
+
         ContentValues weatherValues = new ContentValues();
         weatherValues.put(WeatherEntry.COLUMN_LOC_KEY, locationRowId);
-        weatherValues.put(WeatherEntry.COLUMN_DATETEXT, "20141205");
+        weatherValues.put(WeatherEntry.COLUMN_DATE_TIME, "1397967600");
+        weatherValues.put(WeatherEntry.COLUMN_DATE_TEXT, "Monday, April 20");
         weatherValues.put(WeatherEntry.COLUMN_WEATHER_ID, 321);
         weatherValues.put(WeatherEntry.COLUMN_LONG_DESC, "Raining asteroids");
         weatherValues.put(WeatherEntry.COLUMN_SHORT_DESC, "Asteroids");
@@ -78,22 +83,21 @@ public class TestDb extends AndroidTestCase {
         return weatherValues;
     }
 
-    private static ContentValues createLocationValues() {
+    public static ContentValues createLocationValues() {
         String testName = "Winnipeg";
-        String testLocationSetting = "R3T5N6";
         double testLatitude = 49.8994;
         double testLongitude = -97.1392;
 
         ContentValues values = new ContentValues();
         values.put(LocationEntry.COLUMN_CITY_NAME, testName);
-        values.put(LocationEntry.COLUMN_LOCATION_SETTING, testLocationSetting);
+        values.put(LocationEntry.COLUMN_LOCATION_SETTING, TEST_LOCATION);
         values.put(LocationEntry.COLUMN_LATITUDE, testLatitude);
         values.put(LocationEntry.COLUMN_LONGITUDE, testLongitude);
 
         return values;
     }
 
-    private static void validateCursor(Cursor valueCursor, ContentValues expectedValues) {
+    public static void validateCursor(Cursor valueCursor, ContentValues expectedValues) {
         assertTrue(valueCursor.moveToFirst());
 
         Set<Map.Entry<String, Object>> valueSet = expectedValues.valueSet();

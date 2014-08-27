@@ -38,6 +38,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jorwoody.sunshine.app.activities.MainActivity" />
         </activity>
+        <provider
+            android:authorities="jorwoody.sunshine.app"
+            android:name=".data.WeatherProvider" />
     </application>
 
 </manifest>

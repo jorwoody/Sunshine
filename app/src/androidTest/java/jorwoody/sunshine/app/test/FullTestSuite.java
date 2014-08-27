@@ -4,8 +4,9 @@ import android.test.suitebuilder.TestSuiteBuilder;
 
 import junit.framework.Test;
 
-/**
- * Created by Jordan on 8/18/2014.
+/* Created by: Jordan Wood - August 2014
+ * Description:
+ * Test suite
  */
 public class FullTestSuite {
 

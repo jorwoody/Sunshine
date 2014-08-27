@@ -1,14 +1,15 @@
-package jorwoody.sunshine.app.database;
+package jorwoody.sunshine.app.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import jorwoody.sunshine.app.database.WeatherContract.LocationEntry;
-import jorwoody.sunshine.app.database.WeatherContract.WeatherEntry;
+import jorwoody.sunshine.app.data.WeatherContract.LocationEntry;
+import jorwoody.sunshine.app.data.WeatherContract.WeatherEntry;
 
-/**
- * Created by Jordan on 8/17/2014.
+/* Created by: Jordan Wood - August 2014
+ * Description:
+ * Helper for the database
  */
 public class WeatherDbHelper extends SQLiteOpenHelper {
 
@@ -34,7 +35,8 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 WeatherEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WeatherEntry.COLUMN_LOC_KEY + " INTEGER NOT NULL, " +
 
-                WeatherEntry.COLUMN_DATETEXT + " TEXT NOT NULL, " +
+                WeatherEntry.COLUMN_DATE_TIME + " TEXT NOT NULL, " +
+                WeatherEntry.COLUMN_DATE_TEXT + " TEXT NOT NULL, " +
                 WeatherEntry.COLUMN_SHORT_DESC + " TEXT NOT NULL, " +
                 WeatherEntry.COLUMN_LONG_DESC + " TEXT NOT NULL, " +
 
@@ -56,7 +58,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + WeatherEntry.COLUMN_LOC_KEY + ") REFERENCES " +
                 LocationEntry.TABLE_NAME + "(" + LocationEntry._ID + "), " +
 
-                "UNIQUE (" + WeatherEntry.COLUMN_DATETEXT + ", " + WeatherEntry.COLUMN_LOC_KEY +
+                "UNIQUE (" + WeatherEntry.COLUMN_DATE_TIME + ", " + WeatherEntry.COLUMN_LOC_KEY +
                 ") ON CONFLICT REPLACE);";
 
         db.execSQL(SQL_CREATE_LOCATION_TABLE);
